@@ -1,69 +1,154 @@
-import Image from "next/image";
+"use client";
+
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
 
 export default function Home() {
+  // Convex'ten verileri çekiyoruz (Real-time çalışır)
+  const posts = useQuery(api.posts.getPosts);
+  const travel = useQuery(api.travel.getTravels);
+  const experiences = useQuery(api.experiences.getExperiences);
+  const educations = useQuery(api.educations.getEducations);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main className="min-h-screen bg-slate-50 text-slate-800">
+      {/* Header / Nav */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold tracking-tight text-slate-900">
+            Ekinsu Oğuz
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <nav className="flex gap-6 text-sm font-medium text-slate-600">
+            <a href="#about" className="hover:text-slate-900 transition">Hakkımda</a>
+            <a href="#experiences" className="hover:text-slate-900 transition">Deneyimler</a>
+            <a href="#educations" className="hover:text-slate-900 transition">Eğitim</a>
+            <a href="#travels" className="hover:text-slate-900 transition">Geziler</a>
+            <a href="#posts" className="hover:text-slate-900 transition">Yazılar</a>
+          </nav>
+        </div>
+      </header>
+
+      <div className="max-w-4xl mx-auto px-6 py-12 space-y-20">
+        {/* Hero / About Section */}
+        <section id="about" className="space-y-4">
+          <h2 className="text-4xl font-extrabold text-slate-900">
+            Merhaba, Ben Ekinsu 👋
+          </h2>
+          <p className="text-lg text-slate-600 leading-relaxed">
+            Yazılım geliştirme, gezi deneyimleri ve öğrenim hayatıma dair detayları paylaştığım kişisel alanıma hoş geldiniz.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        </section>
+
+        {/* Experiences Section */}
+        <section id="experiences" className="space-y-6">
+          <h3 className="text-2xl font-bold text-slate-900 border-b pb-2">
+            İş ve Staj Deneyimleri
+          </h3>
+          {!experiences ? (
+            <p className="text-slate-500">Yükleniyor...</p>
+          ) : experiences.length === 0 ? (
+            <p className="text-slate-400 text-sm">Henüz bir deneyim eklenmedi.</p>
+          ) : (
+            <div className="space-y-6">
+              {experiences.map((exp) => (
+                <div key={exp._id} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex gap-4 items-start">
+                  {exp.companyLogoUrl && (
+                    <img
+                      src={exp.companyLogoUrl}
+                      alt={exp.companyName}
+                      className="w-12 h-12 object-contain rounded-md"
+                    />
+                  )}
+                  <div className="space-y-1">
+                    <h4 className="font-semibold text-lg text-slate-900">{exp.experienceTitle}</h4>
+                    <p className="text-slate-600 font-medium text-sm">{exp.companyName}</p>
+                    <p className="text-slate-400 text-xs">
+                      {exp.startDate} - {exp.endDate || "Devam Ediyor"}
+                    </p>
+                    <p className="text-slate-600 text-sm mt-2">{exp.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Educations Section */}
+        <section id="educations" className="space-y-6">
+          <h3 className="text-2xl font-bold text-slate-900 border-b pb-2">
+            Eğitim
+          </h3>
+          {!educations ? (
+            <p className="text-slate-500">Yükleniyor...</p>
+          ) : educations.length === 0 ? (
+            <p className="text-slate-400 text-sm">Henüz bir eğitim bilgisi eklenmedi.</p>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-4">
+              {educations.map((edu) => (
+                <div key={edu._id} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                  <h4 className="font-semibold text-slate-900">{edu.schoolName}</h4>
+                  <p className="text-slate-600 text-sm">{edu.department}</p>
+                  <p className="text-slate-500 text-xs font-medium">GPA: {edu.gpa}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Travels Section */}
+        <section id="travel" className="space-y-6">
+          <h3 className="text-2xl font-bold text-slate-900 border-b pb-2">
+            Geziler & Seyahatler
+          </h3>
+          {!travel ? (
+            <p className="text-slate-500">Yükleniyor...</p>
+          ) : travel.length === 0 ? (
+            <p className="text-slate-400 text-sm">Henüz bir seyahat notu eklenmedi.</p>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-6">
+              {travel.map((travel) => (
+                <div key={travel._id} className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                  {travel.photoUrls && travel.photoUrls[0] && (
+                    <img
+                      src={travel.photoUrls[0]}
+                      alt={travel.title}
+                      className="w-full h-48 object-cover"
+                    />
+                  )}
+                  <div className="p-5 space-y-2">
+                    <h4 className="font-semibold text-slate-900">{travel.title}</h4>
+                    <p className="text-slate-600 text-sm line-clamp-3">{travel.content}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Posts Section */}
+        <section id="posts" className="space-y-6">
+          <h3 className="text-2xl font-bold text-slate-900 border-b pb-2">
+            Blog & Yazılar
+          </h3>
+          {!posts ? (
+            <p className="text-slate-500">Yükleniyor...</p>
+          ) : posts.length === 0 ? (
+            <p className="text-slate-400 text-sm">Henüz paylaşılan bir yazı yok.</p>
+          ) : (
+            <div className="space-y-4">
+              {posts.map((post) => (
+                <article key={post._id} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                  <h4 className="font-semibold text-xl text-slate-900">{post.title}</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed">{post.content}</p>
+                  <p className="text-slate-400 text-xs pt-2">
+                    {new Date(post._creationTime).toLocaleDateString("tr-TR")}
+                  </p>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+    </main>
   );
 }

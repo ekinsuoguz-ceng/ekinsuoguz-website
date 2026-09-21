@@ -7,7 +7,6 @@ export const getEducations = query({
   },
 });
 
-// Yeni bir eğitim bilgisi ekleyen fonksiyon
 export const createEducation = mutation({
   args: {
     schoolName: v.string(),
@@ -15,6 +14,7 @@ export const createEducation = mutation({
     gpa: v.number(),
     startDate: v.number(),
     endDate: v.optional(v.number()),
+    location: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("educations", args);

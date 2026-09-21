@@ -21,17 +21,17 @@ export default defineSchema({
         gpa: v.number(),
         startDate: v.number(),
         endDate: v.optional(v.number()),
+        location: v.optional(v.string()),
         updatedAt: v.optional(v.number()),
     }),
 
     experiences: defineTable({
         companyName: v.string(),
         position: v.string(),
-        experienceTitle: v.string(),
         description: v.string(),
-        startDate: v.string(), 
-        endDate: v.optional(v.string()), 
-        companyLogoStorageId: v.optional(v.id("_storage")), 
+        startDate: v.string(),
+        endDate: v.optional(v.string()),
+        companyLogoStorageId: v.optional(v.id("_storage")),
         updatedAt: v.optional(v.number()),
     }),
 });

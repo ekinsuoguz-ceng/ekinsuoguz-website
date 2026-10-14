@@ -10,7 +10,7 @@ export default function ExperiencesPage() {
   const educations = useQuery(api.educations.getEducations);
 
   return (
-    <main className="min-h-screen bg-[#f3ede3]">
+    <main className="min-h-screen bg-gradient-to-b from-[#D2A844] via-[#E8BD56] to-[#F8F1DF]">
       <Header />
       <div className="max-w-4xl mx-auto px-6 py-12">
         <section id="experiences" className="space-y-2">
@@ -29,7 +29,7 @@ export default function ExperiencesPage() {
             <div className="relative border-l-2 border-dashed border-slate-300 pl-8 space-y-8">
               {experiences.map((exp) => (
                 <div key={exp._id} className="relative">
-                  <span className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-orange-400 border-4 border-[#f3ede3]" />
+                  <span className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-orange-400 border-4 border-[#D2A844]" />
                   <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <div className="flex justify-between items-start gap-4 mb-1">
                       <h4 className="font-semibold text-slate-900">{exp.companyName}</h4>

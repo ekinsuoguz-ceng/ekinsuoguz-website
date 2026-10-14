@@ -12,8 +12,19 @@ export default defineSchema({
         title: v.string(),
         content: v.string(),
         photoStorageId: v.array(v.id("_storage")),
+        countryId: v.optional(v.id("travelCountries")),
+        coverImageUrl: v.optional(v.string()),
+        coverImageStorageId: v.optional(v.id("_storage")),
         updatedAt: v.optional(v.number()),
-    }),
+    }).index("by_countryId", ["countryId"]),
+
+    travelCountries: defineTable({
+        name: v.string(),
+        description: v.string(),
+        imageUrl: v.optional(v.string()),
+        imageStorageId: v.optional(v.id("_storage")),
+        sortOrder: v.number(),
+    }).index("by_sortOrder", ["sortOrder"]),
 
     educations: defineTable({
         schoolName: v.string(),

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const navLinks = [
     { href: './aboutMe', label: 'About Me' },
     { href: './experiences', label: 'Experiences' },
@@ -5,24 +7,26 @@ const navLinks = [
     { href: './travels', label: 'Travels' }
 ];
 
-export default function Header() {
+export default function Header({ variant = "default" }: { variant?: "default" | "about" }) {
+    const isAbout = variant === "about";
+
     return (
-    <header className="pt-5 z-50 ">
-      <div className="max-w-7xl mx-auto py-4 flex items-center gap-6">
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-          <a href="/">Ekinsu.</a>
+    <header className={`relative z-50 px-6 pt-4 ${isAbout ? "bg-[#D2A844]" : ""}`}>
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-2 py-4">
+        <h1 className={`text-2xl font-bold tracking-tight ${isAbout ? "text-[#244337]" : "text-slate-900"}`}>
+          <Link href="/">Ekinsu.</Link>
         </h1>
-        <nav className="flex-1 flex justify-center gap-10 text-lg font-medium text-slate-600 whitespace-nowrap">
+        <nav className={`order-3 flex basis-full flex-1 justify-start gap-5 overflow-x-auto whitespace-nowrap text-sm font-medium md:order-none md:basis-auto md:justify-center md:gap-10 md:text-lg ${isAbout ? "text-[#47604C]" : "text-slate-600"}`}>
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-slate-900 transition">
+            <a key={link.href} href={link.href} className={`transition ${isAbout ? "hover:text-[#18382D]" : "hover:text-slate-900"}`}>
               {link.label}
             </a>
           ))}
         </nav>
-        <div className="flex justify-end">
+        <div className="order-2 ml-auto flex justify-end md:order-none md:ml-0">
           <a
             href="mailto:ekinsuoguz.dev@gmail.com"
-            className="rounded-full border border-slate-300 px-5 py-2 font-mono text-md text-slate-700 hover:border-slate-400 hover:text-slate-900 transition"
+            className={`rounded-full border px-5 py-2 font-mono text-md transition ${isAbout ? "border-[#59704B] text-[#244337] hover:border-[#244337] hover:bg-[#E8BD56]" : "border-slate-300 text-slate-700 hover:border-slate-400 hover:text-slate-900"}`}
           >
             get in touch
           </a>

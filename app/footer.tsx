@@ -1,5 +1,5 @@
 const socialLinks = [
-  { href: "https://www.linkedin.com/in/ekinsu-o%C4%9Fuz-0b546322a/", label: "LinkedIn" },
+  { href: "https://www.linkedin.com/in/ekinsu-oguz", label: "LinkedIn" },
   { href: "https://github.com/ekinsuoguz-ceng", label: "GitHub" },
   { href: "https://www.youtube.com/@sadeceekinsu", label: "YouTube" },
 ];

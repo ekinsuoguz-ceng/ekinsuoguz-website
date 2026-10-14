@@ -3,15 +3,16 @@
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import Header from "../header";
+import Footer from "../footer";
 
 export default function PostsPage() {
   const posts = useQuery(api.posts.getPosts);
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-800">
+    <main className="min-h-screen flex flex-col bg-gradient-to-b from-[#D2A844] via-[#E8BD56] to-[#F8F1DF]">
       <Header />
 
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto w-full flex-1 px-6 py-12">
         <section id="posts" className="space-y-6">
           <h3 className="text-2xl font-bold text-slate-900 border-b pb-2">
             Blog & Yazılar
@@ -35,6 +36,7 @@ export default function PostsPage() {
           )}
         </section>
       </div>
+      <Footer />
     </main>
   );
 }

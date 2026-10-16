@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ekinsu Oguz",
-  description: "Ekinsu Oğuz Kişisel Web Sitesi",
+  description: "Ekinsu Oguz's personal website",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

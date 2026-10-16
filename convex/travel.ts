@@ -17,7 +17,7 @@ export const getTravels = query({
   handler: async (ctx) => {
     const travels = await ctx.db.query("travels").order("desc").take(100);
     
-    // Fotoğraf ID'lerini doğrudan erişilebilir URL'lere dönüştürüyoruz
+    // Convert photo IDs into directly accessible URLs.
     return Promise.all(
       travels.map(async (travel) => ({
         ...travel,

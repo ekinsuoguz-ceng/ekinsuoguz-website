@@ -5,7 +5,7 @@ import { api } from "../convex/_generated/api";
 import Header from "./header";
 
 export default function Home() {
-  // Convex'ten verileri çekiyoruz (Real-time çalışır)
+  // Fetch data from Convex in real time.
   const posts = useQuery(api.posts.getPosts);
   const travel = useQuery(api.travel.getTravels);
   const experiences = useQuery(api.experiences.getExperiences);
@@ -42,7 +42,7 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                <span>Currently based in: <strong className="text-gray-200 font-medium">İzmir</strong></span>
+                <span>Currently based in: <strong className="text-gray-200 font-medium">Izmir</strong></span>
               </div>
 
               <a href="#journal" className="group flex items-center gap-2 text-xs sm:text-sm font-sans text-amber-200/80 hover:text-amber-200 transition-colors py-1">

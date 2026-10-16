@@ -2,7 +2,7 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
 // "01.02.2025" (GG.AA.YYYY), "July 2024 – August 2024" veya sade "2022" gibi
-// formatları karşılaştırılabilir bir sayıya (timestamp) çevirir.
+// Converts date formats into comparable timestamps.
 function parseStartDate(value: string): number {
   const trimmed = value.trim();
 
@@ -13,12 +13,12 @@ function parseStartDate(value: string): number {
     return new Date(`${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`).getTime();
   }
 
-  // "July 2024 – August 2024" gibi aralıkların ilk kısmı
+  // Use the first part of ranges such as "July 2024 – August 2024".
   const firstPart = trimmed.split(/[–—-]/)[0].trim();
   const parsed = Date.parse(firstPart);
   if (!isNaN(parsed)) return parsed;
 
-  // sade yıl: "2022"
+  // Also support a year by itself, such as "2022".
   const year = parseInt(firstPart, 10);
   return isNaN(year) ? 0 : year;
 }
@@ -27,7 +27,7 @@ export const getExperiences = query({
   handler: async (ctx) => {
     const experiences = await ctx.db.query("experiences").collect();
 
-    // En yeni startDate en üstte olacak şekilde sırala (eklenme sırası değil)
+    // Sort by newest start date rather than insertion order.
     experiences.sort(
       (a, b) => parseStartDate(b.startDate) - parseStartDate(a.startDate)
     );

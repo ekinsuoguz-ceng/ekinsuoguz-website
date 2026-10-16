@@ -15,12 +15,12 @@ export default function PostsPage() {
       <div className="max-w-4xl mx-auto w-full flex-1 px-6 py-12">
         <section id="posts" className="space-y-6">
           <h3 className="text-2xl font-bold text-slate-900 border-b pb-2">
-            Blog & Yazılar
+            Blogs
           </h3>
           {!posts ? (
-            <p className="text-slate-500">Yükleniyor...</p>
+            <p className="text-slate-500">Loading...</p>
           ) : posts.length === 0 ? (
-            <p className="text-slate-400 text-sm">Henüz paylaşılan bir yazı yok.</p>
+            <p className="text-slate-400 text-sm">No posts have been published yet.</p>
           ) : (
             <div className="space-y-4">
               {posts.map((post) => (
@@ -28,7 +28,7 @@ export default function PostsPage() {
                   <h4 className="font-semibold text-xl text-slate-900">{post.title}</h4>
                   <p className="text-slate-600 text-sm leading-relaxed">{post.content}</p>
                   <p className="text-slate-400 text-xs pt-2">
-                    {new Date(post._creationTime).toLocaleDateString("tr-TR")}
+                    {new Date(post._creationTime).toLocaleDateString("en-US")}
                   </p>
                 </article>
               ))}

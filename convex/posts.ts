@@ -1,14 +1,14 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
-// Tüm blog yazılarını getiren sorgu
+// Query all blog posts.
 export const getPosts = query({
   handler: async (ctx) => {
     return await ctx.db.query("posts").order("desc").collect();
   },
 });
 
-// Yeni bir blog yazısı ekleyen fonksiyon
+// Add a new blog post.
 export const createPost = mutation({
   args: {
     title: v.string(),

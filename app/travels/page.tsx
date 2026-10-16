@@ -105,7 +105,7 @@ export default function TravelsPage() {
                       {country.description}
                     </p>
                     <span className="inline-block pt-2 text-xs font-semibold uppercase tracking-wide text-[#9E4D2D]">
-                      Keşfet &rarr;
+                      Explore &rarr;
                     </span>
                   </div>
                 </button>

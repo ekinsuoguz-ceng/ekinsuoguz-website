@@ -22,9 +22,9 @@ export default function ExperiencesPage() {
           </h3>
 
           {!experiences ? (
-            <p className="text-slate-500">Yükleniyor...</p>
+            <p className="text-slate-500">Loading...</p>
           ) : experiences.length === 0 ? (
-            <p className="text-slate-400 text-sm">Henüz bir deneyim eklenmedi.</p>
+            <p className="text-slate-400 text-sm">No experience has been added yet.</p>
           ) : (
             <div className="relative border-l-2 border-dashed border-slate-300 pl-8 space-y-8">
               {experiences.map((exp) => (
@@ -61,9 +61,9 @@ export default function ExperiencesPage() {
             </p>
 
             {!educations ? (
-              <p className="text-slate-300">Yükleniyor...</p>
+              <p className="text-slate-300">Loading...</p>
             ) : educations.length === 0 ? (
-              <p className="text-slate-400 text-sm">Henüz bir eğitim bilgisi eklenmedi.</p>
+              <p className="text-slate-400 text-sm">No education details have been added yet.</p>
             ) : (
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {educations.map((edu) => (

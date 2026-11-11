@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useQuery } from "convex/react";
 import type { Id } from "../../convex/_generated/dataModel";
 import { api } from "../../convex/_generated/api";
@@ -17,7 +18,7 @@ export default function TravelsPage() {
   );
 
   return (
-    <main className="min-h-screen flex flex-col bg-gradient-to-b from-[#D2A844] via-[#E8BD56] to-[#F8F1DF]">
+    <main className="min-h-screen flex flex-col bg-linear-to-b from-[#D2A844] via-[#E8BD56] to-[#F8F1DF]">
       <Header />
 
       <div className="max-w-4xl mx-auto w-full flex-1 px-6 py-12">
@@ -59,11 +60,15 @@ export default function TravelsPage() {
                         className="overflow-hidden rounded-xl border border-[#D7C79D] bg-[#FFF9EC] shadow-sm"
                       >
                         {imageUrl && (
-                          <img
-                            src={imageUrl}
-                            alt={place.title}
-                            className="h-48 w-full object-cover"
-                          />
+                          <div className="relative h-48 w-full">
+                            <Image
+                              src={imageUrl}
+                              alt={place.title}
+                              fill
+                              sizes="(min-width: 768px) 50vw, 100vw"
+                              className="object-cover"
+                            />
+                          </div>
                         )}
                         <div className="space-y-2 p-5">
                           <h5 className="font-semibold text-slate-900">{place.title}</h5>
@@ -93,11 +98,15 @@ export default function TravelsPage() {
                   className="group overflow-hidden rounded-xl border border-[#D7C79D] bg-[#FFF9EC] text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#244337]"
                 >
                   {country.resolvedImageUrl && (
-                    <img
-                      src={country.resolvedImageUrl}
-                      alt=""
-                      className="h-48 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                    />
+                    <div className="relative h-48 w-full overflow-hidden">
+                      <Image
+                        src={country.resolvedImageUrl}
+                        alt=""
+                        fill
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="object-cover transition duration-300 group-hover:scale-[1.02]"
+                      />
+                    </div>
                   )}
                   <div className="space-y-2 p-5">
                     <h4 className="font-serif text-xl text-[#244337]">{country.name}</h4>

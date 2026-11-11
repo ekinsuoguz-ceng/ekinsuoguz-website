@@ -9,7 +9,7 @@ export default function PostsPage() {
   const posts = useQuery(api.posts.getPosts);
 
   return (
-    <main className="min-h-screen flex flex-col bg-gradient-to-b from-[#D2A844] via-[#E8BD56] to-[#F8F1DF]">
+    <main className="min-h-screen flex flex-col bg-linear-to-b from-[#D2A844] via-[#E8BD56] to-[#F8F1DF]">
       <Header />
 
       <div className="max-w-4xl mx-auto w-full flex-1 px-6 py-12">

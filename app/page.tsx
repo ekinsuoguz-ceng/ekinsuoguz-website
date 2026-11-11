@@ -1,16 +1,8 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { api } from "../convex/_generated/api";
 import Header from "./header";
-
+import SongOfTheWeek from "./ songOfTheWeek";
 export default function Home() {
-  // Fetch data from Convex in real time.
-  const posts = useQuery(api.posts.getPosts);
-  const travel = useQuery(api.travel.getTravels);
-  const experiences = useQuery(api.experiences.getExperiences);
-
-
   return (
     <main className="min-h-screen flex flex-col bg-slate-50 text-slate-800 bg-[url('/dance.jpg')]  bg-center bg-cover">
       <Header />

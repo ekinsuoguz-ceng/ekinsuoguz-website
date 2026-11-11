@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useMutation, useQuery } from "convex/react";
 import type { Id } from "../../convex/_generated/dataModel";
 import { api } from "../../convex/_generated/api";
@@ -34,8 +35,6 @@ export default function AdminPage() {
 
   // Convex mutations
   const createPost = useMutation(api.posts.createPost);
-  const createEducation = useMutation(api.educations.createEducation);
-  const createExperience = useMutation(api.experiences.createExperience);
   const createCountry = useMutation(api.travel.createCountry);
   const updateCountryImage = useMutation(api.travel.updateCountryImage);
   const createTravelPlace = useMutation(api.travel.createTravelPlace);
@@ -60,7 +59,7 @@ export default function AdminPage() {
   const [countryImageError, setCountryImageError] = useState("");
 
   // Verify the password on the server.
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     const isValid = await verifyAdminPassword(password);
@@ -73,7 +72,7 @@ export default function AdminPage() {
   };
 
   // Add a blog post.
-  const handleAddPost = async (e: React.FormEvent) => {
+  const handleAddPost = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     await createPost({ title: postTitle, content: postContent });
     setPostTitle("");
@@ -81,7 +80,7 @@ export default function AdminPage() {
     alert("Post added successfully!");
   };
 
-  const handleAddCountry = async (e: React.FormEvent) => {
+  const handleAddCountry = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setCountryError("");
     setIsUploadingImage(true);
@@ -107,7 +106,7 @@ export default function AdminPage() {
     }
   };
 
-  const handleAddPlace = async (e: React.FormEvent) => {
+  const handleAddPlace = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!placeCountryId) return;
 
@@ -134,7 +133,7 @@ export default function AdminPage() {
     }
   };
 
-  const handleUpdateCountryImage = async (e: React.FormEvent) => {
+  const handleUpdateCountryImage = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!imageCountryId || !existingCountryImageFile) return;
 
@@ -165,7 +164,7 @@ export default function AdminPage() {
         <div className="absolute -bottom-28 -right-20 h-96 w-96 rounded-full bg-[#9e4d2d]/10 blur-3xl" />
         <form
           onSubmit={handleLogin}
-          className="relative w-full max-w-md rounded-[2rem] border border-[#e6e0d2] bg-[#fffdf8] p-8 shadow-[0_24px_80px_-36px_rgba(36,67,55,0.35)] sm:p-10"
+          className="relative w-full max-w-md rounded-4xl border border-[#e6e0d2] bg-[#fffdf8] p-8 shadow-[0_24px_80px_-36px_rgba(36,67,55,0.35)] sm:p-10"
         >
           <div className="mb-10 flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#244337] font-serif text-xl font-bold text-[#f8edce]">
@@ -237,7 +236,7 @@ export default function AdminPage() {
             </a>
           ))}
         </nav>
-        <div className="mt-auto hidden rounded-2xl border border-white/10 bg-white/[0.06] p-4 lg:block">
+        <div className="mt-auto hidden rounded-2xl border border-white/10 bg-white/6 p-4 lg:block">
           <p className="text-xs font-medium text-[#c2d1c4]">Travel archive</p>
           <p className="mt-2 font-serif text-3xl text-white">{countries?.length ?? "—"}</p>
           <p className="mt-1 text-xs text-[#a9c0ae]">countries</p>
@@ -261,8 +260,8 @@ export default function AdminPage() {
 
         <section className="mx-auto mt-8 max-w-6xl overflow-hidden rounded-[1.75rem] bg-[#e8bd56] shadow-[0_20px_60px_-38px_rgba(36,67,55,0.55)]">
           <div className="relative px-6 py-7 sm:px-9 sm:py-9">
-            <div className="absolute -right-8 -top-16 h-56 w-56 rounded-full border-[28px] border-[#244337]/[0.07]" />
-            <div className="absolute -bottom-20 right-28 h-40 w-40 rounded-full bg-[#9e4d2d]/[0.08]" />
+            <div className="absolute -right-8 -top-16 h-56 w-56 rounded-full border-28 border-[#244337]/7" />
+            <div className="absolute -bottom-20 right-28 h-40 w-40 rounded-full bg-[#9e4d2d]/8" />
             <div className="relative max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full bg-[#244337]/10 px-3 py-1.5 text-xs font-semibold text-[#244337]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#9e4d2d]" />
@@ -279,7 +278,7 @@ export default function AdminPage() {
         </section>
 
         <div className="mx-auto mt-7 grid max-w-6xl grid-cols-1 gap-5">
-          <section id="blog" className="scroll-mt-6 rounded-[1.5rem] border border-[#e5e0d4] bg-[#fffdf8] p-5 shadow-[0_12px_40px_-30px_rgba(36,67,55,0.35)] sm:p-7">
+          <section id="blog" className="scroll-mt-6 rounded-3xl border border-[#e5e0d4] bg-[#fffdf8] p-5 shadow-[0_12px_40px_-30px_rgba(36,67,55,0.35)] sm:p-7">
             <div className="mb-6 flex items-start gap-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#f2e9d3] font-serif text-lg text-[#9e4d2d]">01</span>
               <div>
@@ -302,7 +301,7 @@ export default function AdminPage() {
             </form>
           </section>
 
-          <section id="countries" className="scroll-mt-6 rounded-[1.5rem] border border-[#e5e0d4] bg-[#fffdf8] p-5 shadow-[0_12px_40px_-30px_rgba(36,67,55,0.35)] sm:p-7">
+          <section id="countries" className="scroll-mt-6 rounded-3xl border border-[#e5e0d4] bg-[#fffdf8] p-5 shadow-[0_12px_40px_-30px_rgba(36,67,55,0.35)] sm:p-7">
             <div className="mb-6 flex items-start gap-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#e8eee7] font-serif text-lg text-[#244337]">02</span>
               <div>
@@ -331,7 +330,7 @@ export default function AdminPage() {
             </form>
           </section>
 
-          <section id="country-photo" className="scroll-mt-6 rounded-[1.5rem] border border-[#e5e0d4] bg-[#fffdf8] p-5 shadow-[0_12px_40px_-30px_rgba(36,67,55,0.35)] sm:p-7">
+          <section id="country-photo" className="scroll-mt-6 rounded-3xl border border-[#e5e0d4] bg-[#fffdf8] p-5 shadow-[0_12px_40px_-30px_rgba(36,67,55,0.35)] sm:p-7">
             <div className="mb-6 flex items-start gap-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#f5e5db] font-serif text-lg text-[#9e4d2d]">03</span>
               <div>
@@ -349,7 +348,7 @@ export default function AdminPage() {
               </div>
               {selectedImageCountry?.resolvedImageUrl && (
                 <div className="flex items-center gap-3 rounded-xl bg-[#f5f2e9] p-3">
-                  <img src={selectedImageCountry.resolvedImageUrl} alt="" className="h-14 w-14 rounded-lg object-cover" />
+                  <Image src={selectedImageCountry.resolvedImageUrl} alt="" width={56} height={56} className="h-14 w-14 rounded-lg object-cover" />
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-wide text-[#899189]">Current cover photo</p>
                     <p className="mt-1 text-sm font-medium text-[#405046]">{selectedImageCountry.name}</p>
@@ -369,7 +368,7 @@ export default function AdminPage() {
             </form>
           </section>
 
-          <section id="places" className="scroll-mt-6 rounded-[1.5rem] border border-[#e5e0d4] bg-[#fffdf8] p-5 shadow-[0_12px_40px_-30px_rgba(36,67,55,0.35)] sm:p-7">
+          <section id="places" className="scroll-mt-6 rounded-3xl border border-[#e5e0d4] bg-[#fffdf8] p-5 shadow-[0_12px_40px_-30px_rgba(36,67,55,0.35)] sm:p-7">
             <div className="mb-6 flex items-start gap-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#e8eee7] font-serif text-lg text-[#244337]">04</span>
               <div>

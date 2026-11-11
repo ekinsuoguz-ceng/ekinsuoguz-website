@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Header from "../header";
 import Footer from "../footer";
 
@@ -53,7 +54,7 @@ export default function AboutMePage() {
   return (
     <main className="min-h-screen bg-[#F8F1DF]">
       <Header variant="about" />
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#D2A844] via-[#E8BD56] to-[#F8F1DF] px-6 pt-16 pb-24 text-center">
+      <section className="relative overflow-hidden bg-linear-to-b from-[#D2A844] via-[#E8BD56] to-[#F8F1DF] px-6 pt-16 pb-24 text-center">
         <p className="mb-3 font-serif text-4xl italic text-[#9E4D2D] md:text-5xl">
           Meet the Dreamer
         </p>
@@ -106,11 +107,13 @@ export default function AboutMePage() {
           </p>
         </div>
 
-        <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl border-4 border-white/70 shadow-xl shadow-[#73572B]/15">
-          <img
+        <div className="relative aspect-4/3 w-full overflow-hidden rounded-3xl border-4 border-white/70 shadow-xl shadow-[#73572B]/15">
+          <Image
             src="/bg.png"
             alt="Ekinsu"
-            className="w-full h-full object-cover"
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
           />
         </div>
       </section>
@@ -140,7 +143,7 @@ export default function AboutMePage() {
       </section>
 
       {/* Tools & Mediums */}
-      <section className="bg-gradient-to-b from-[#E8E5CC] via-[#F1EBD6] to-[#F3EDE3] px-6 py-20 text-center">
+      <section className="bg-linear-to-b from-[#E8E5CC] via-[#F1EBD6] to-[#F3EDE3] px-6 py-20 text-center">
         <p className="mb-2 font-serif text-2xl italic text-[#9E4D2D]">
           Tools & Mediums
         </p>
